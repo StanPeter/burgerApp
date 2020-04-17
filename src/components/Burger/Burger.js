@@ -11,6 +11,8 @@ const Burger = (props) => {
             <Burgeringredient key={ingredient + index} type={ingredient} />
         ));
     }).reduce((arr, el) => {
+        console.log(arr);
+        console.log(el);
         return arr.concat(el)
     }, []);
 

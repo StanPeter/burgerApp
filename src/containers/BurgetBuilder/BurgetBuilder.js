@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import Aux from "../../hoc/Aux";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENTS_PRICES = {
     salad: 0.2,
@@ -19,7 +21,8 @@ class BurgetBuilder extends Component {
             cheese: 0,
             meat: 0
         },
-        burgerPrice: 1.4
+        burgerPrice: 1.4,
+        isPurchasable: false
     };
 
     addIngredientHandler = (type) => {
@@ -30,6 +33,7 @@ class BurgetBuilder extends Component {
         const updatedBurgerPrice = this.state.burgerPrice + INGREDIENTS_PRICES[type];
 
         this.setState({ingredients: updatedIngredient, burgerPrice: updatedBurgerPrice});
+        this.isPurchasableHandler(updatedIngredient);
     } 
 
     removeIngredientHandler = (type) => {
@@ -41,9 +45,18 @@ class BurgetBuilder extends Component {
             const updatedBurgerPrice = this.state.burgerPrice - INGREDIENTS_PRICES[type];
 
             this.setState({ingredients: updatedIngredient, burgerPrice: updatedBurgerPrice});
+            this.isPurchasableHandler(updatedIngredient);
         } else {
             console.log("Amount of " + type.toUpperCase() + " ingredient cannot be less than 0!");
         }
+    }
+
+    isPurchasableHandler = (ingredients) => {
+        const numOfIngredients = Object.keys(ingredients)
+        .map(ingredient => ingredients[ingredient])
+        .reduce((num, el) => num + el ,0);
+        
+        this.setState({isPurchasable: numOfIngredients > 0});
     }
 
     render() {
@@ -56,6 +69,9 @@ class BurgetBuilder extends Component {
 
         return (
             <Aux>
+                <Modal>
+                    <OrderSummary ingredients={this.state.ingredients} />
+                </Modal>
                 <Burger 
                     ingredients={this.state.ingredients} />
                 <BuildControls 
@@ -63,6 +79,7 @@ class BurgetBuilder extends Component {
                     removeIngredient={this.removeIngredientHandler}
                     burgerPrice={this.state.burgerPrice}
                     disabledInfo={disabledInfo}
+                    purchasableInfo={this.state.isPurchasable}
                 />
             </Aux>
         );
