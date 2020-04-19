@@ -22,7 +22,8 @@ class BurgetBuilder extends Component {
             meat: 0
         },
         burgerPrice: 1.4,
-        isPurchasable: false
+        isPurchasable: false, //can we purchase the burger(any ingredients?)
+        isPurchasing: false //after clicking on Order (pop out Modal)
     };
 
     addIngredientHandler = (type) => {
@@ -59,6 +60,16 @@ class BurgetBuilder extends Component {
         this.setState({isPurchasable: numOfIngredients > 0});
     }
 
+    purchasingHandler = () => {
+        console.log("cloicked");
+        this.setState({isPurchasing: true});
+        console.log(this.state.isPurchasing);
+    }
+
+    closePurchasingHandler = () => {
+        this.setState({isPurchasing: false});
+    }
+
     render() {
         const disabledInfo = {
             ...this.state.ingredients
@@ -69,8 +80,8 @@ class BurgetBuilder extends Component {
 
         return (
             <Aux>
-                <Modal>
-                    <OrderSummary ingredients={this.state.ingredients} />
+                <Modal show={this.state.isPurchasing} hide={this.closePurchasingHandler}>
+                    <OrderSummary ingredients={this.state.ingredients}  />
                 </Modal>
                 <Burger 
                     ingredients={this.state.ingredients} />
@@ -80,6 +91,7 @@ class BurgetBuilder extends Component {
                     burgerPrice={this.state.burgerPrice}
                     disabledInfo={disabledInfo}
                     purchasableInfo={this.state.isPurchasable}
+                    purchasing={this.purchasingHandler}
                 />
             </Aux>
         );
