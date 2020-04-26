@@ -14,6 +14,18 @@ const INGREDIENTS_PRICES = {
 }
 
 class BurgetBuilder extends Component {
+    // constructor(props) {
+    //     super(props);
+
+    //     this.state = {
+    //         //set that initial state
+    //     };
+
+    //     //our event handlers
+    //     this.onCLick = this.onCLick.bind(this);
+    //     this.onKeyUp = this.onKeyUp.bind(this);
+    // }
+
     state = {
         ingredients: {
             salad: 0,
@@ -66,8 +78,12 @@ class BurgetBuilder extends Component {
         console.log(this.state.isPurchasing);
     }
 
-    closePurchasingHandler = () => {
+    cancelPurchasingHandler = () => {
         this.setState({isPurchasing: false});
+    }
+
+    continuePurchasingHandler = () => {
+        alert("continue");
     }
 
     render() {
@@ -80,8 +96,12 @@ class BurgetBuilder extends Component {
 
         return (
             <Aux>
-                <Modal show={this.state.isPurchasing} hide={this.closePurchasingHandler}>
-                    <OrderSummary ingredients={this.state.ingredients}  />
+                <Modal show={this.state.isPurchasing} hide={this.cancelPurchasingHandler}>
+                    <OrderSummary 
+                        orderCancel={this.cancelPurchasingHandler}
+                        orderContinue={this.continuePurchasingHandler}
+                        ingredients={this.state.ingredients}  
+                        price={this.state.burgerPrice}/>
                 </Modal>
                 <Burger 
                     ingredients={this.state.ingredients} />
