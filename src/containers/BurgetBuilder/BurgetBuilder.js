@@ -95,7 +95,7 @@ class BurgetBuilder extends Component {
         }
 
         return (
-            <Aux>
+            <Aux> 
                 <Modal show={this.state.isPurchasing} hide={this.cancelPurchasingHandler}>
                     <OrderSummary 
                         orderCancel={this.cancelPurchasingHandler}
