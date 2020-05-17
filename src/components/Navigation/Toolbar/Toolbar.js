@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../../Logo/Logo";
-
 import "./Toolbar.css";
+import Navigation from "../Navigation";
 
 
 const Toolbar = (props) => (
@@ -9,7 +9,7 @@ const Toolbar = (props) => (
         <div>Menu</div>
         <Logo />
         <nav>
-            ...
+            <Navigation />
         </nav>
     </header>
 );
