@@ -1,13 +1,13 @@
 import React from "react";
-import "./Navigation.css";
+import "./NavigationItems.css";
 
 import NavigationItem from "./NavigationItem/NavigationItem";
 
-const Navigation = (props) => (
-    <ul className="Navigation">
+const NavigationItems = (props) => (
+    <ul className="NavigationItems">
         <NavigationItem link="/" active>Burger Builder</NavigationItem>
         <NavigationItem link="/">Checkout</NavigationItem>
     </ul>
 );
 
-export default Navigation;
+export default NavigationItems;

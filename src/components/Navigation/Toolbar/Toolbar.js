@@ -1,15 +1,15 @@
 import React from "react";
 import Logo from "../../Logo/Logo";
 import "./Toolbar.css";
-import Navigation from "../Navigation";
+import NavigationItems from "../NavigationItems";
 
 
 const Toolbar = (props) => (
     <header className="Toolbar">
         <div>Menu</div>
-        <Logo />
+        <Logo height="80%" />
         <nav>
-            <Navigation />
+            <NavigationItems />
         </nav>
     </header>
 );
