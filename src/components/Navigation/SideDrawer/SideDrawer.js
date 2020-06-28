@@ -7,16 +7,17 @@ import Backdrop from "../../UI/Backdrop/Backdrop";
 import Aux from "../../../hoc/Aux";
 
 const SideDrawer = (props) => {
-    let backdropClasses = [classes.SideDrawer, classes.Close];
-    if(props.open) backdropClasses = [classes.SideDrawer, classes.Open];
+    let attachedClasses = [classes.SideDrawer, classes.Close];
+    if(props.open) attachedClasses = [classes.SideDrawer, classes.Open];
 
     return (
         <Aux>
-            <Backdrop className={backdropClasses} show={props.open} clicked={props.close} />
-            <div className="SideDrawer">
-                <Logo height="12%" />
+            <Backdrop show={props.open} clicked={props.close} />
+            <div className={attachedClasses.join(' ')}>
+                <div className={classes.Logo}>
+                    <Logo />
+                </div>
                 <nav>
-                    ...some
                     <NavigationItems />
                 </nav>
             </div>
