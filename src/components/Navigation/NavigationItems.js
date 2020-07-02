@@ -9,5 +9,5 @@ const NavigationItems = (props) => (
         <NavigationItem link="/">Checkout</NavigationItem>
     </ul>
 );
-//try
+
 export default NavigationItems;

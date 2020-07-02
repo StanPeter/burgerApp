@@ -74,7 +74,6 @@ class BurgetBuilder extends Component {
     }
 
     purchasingHandler = () => {
-        console.log("cloicked");
         this.setState({isPurchasing: true});
         console.log(this.state.isPurchasing);
     }
