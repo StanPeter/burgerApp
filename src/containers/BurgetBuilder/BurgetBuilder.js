@@ -8,6 +8,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../api/orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import errorHandler from "../../hoc/errorHandler";
 
 const INGREDIENTS_PRICES = {
     salad: 0.2,
@@ -30,17 +31,19 @@ class BurgetBuilder extends Component {
     // }
 
     state = {
-        ingredients: {
-            salad: 0,
-            bacon: 0,
-            cheese: 0,
-            meat: 0
-        },
         burgerPrice: 1.4,
         isPurchasable: false, //can we purchase the burger(any ingredients?)
         isPurchasing: false, //after clicking on Order (pop out Modal)
         isLoading: false,
     };
+
+    componentDidMount() {
+        axios.get('https://tastyburgs.firebaseio.com/ingredients.json')
+            .then(res => this.setState({ingredients: res.data}))
+            .catch(err => {                
+                console.log(err, 'err');
+            });
+    }
 
     addIngredientHandler = (type) => {
         const updatedCount = this.state.ingredients[type] + 1;
@@ -112,30 +115,35 @@ class BurgetBuilder extends Component {
             disabledInfo[ingredient] = disabledInfo[ingredient] <= 0
         }
 
-        const orderSummary = !this.state.isLoading ? <OrderSummary 
-            orderCancel={this.cancelPurchasingHandler}
-            orderContinue={this.continuePurchasingHandler}
-            ingredients={this.state.ingredients}  
-            price={this.state.burgerPrice}/> : <Spinner />
+        const orderSummary = !this.state.isLoading && this.state.ingredients ? 
+            <OrderSummary 
+                orderCancel={this.cancelPurchasingHandler}
+                orderContinue={this.continuePurchasingHandler}
+                ingredients={this.state.ingredients}  
+                price={this.state.burgerPrice}/> : <Spinner />
 
         return (
             <Aux> 
                 <Modal show={this.state.isPurchasing} hide={this.cancelPurchasingHandler}>
                     {orderSummary}
                 </Modal>
-                <Burger 
-                    ingredients={this.state.ingredients} />
-                <BuildControls 
-                    addIngredient={this.addIngredientHandler} 
-                    removeIngredient={this.removeIngredientHandler}
-                    burgerPrice={this.state.burgerPrice}
-                    disabledInfo={disabledInfo}
-                    purchasableInfo={this.state.isPurchasable}
-                    purchasing={this.purchasingHandler}
-                />
+                {!this.state.ingredients ? <Spinner /> : 
+                (
+                    <Aux>
+                        <Burger 
+                            ingredients={this.state.ingredients} />
+                        <BuildControls 
+                            addIngredient={this.addIngredientHandler} 
+                            removeIngredient={this.removeIngredientHandler}
+                            burgerPrice={this.state.burgerPrice}
+                            disabledInfo={disabledInfo}
+                            purchasableInfo={this.state.isPurchasable}
+                            purchasing={this.purchasingHandler} />
+                    </Aux> 
+                )}
             </Aux>
         );
     }
 }
 
-export default BurgetBuilder;
+export default errorHandler(BurgetBuilder, axios);
