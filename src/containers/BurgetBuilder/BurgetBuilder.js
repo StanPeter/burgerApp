@@ -18,24 +18,20 @@ const INGREDIENTS_PRICES = {
 }
 
 class BurgetBuilder extends Component {
-    // constructor(props) {
-    //     super(props);
+    constructor(props) {
+        super(props);
 
-    //     this.state = {
-    //         //set that initial state
-    //     };
+        this.state = {
+            burgerPrice: 1.4,
+            isPurchasable: false, //can we purchase the burger(any ingredients?)
+            isPurchasing: false, //after clicking on Order (pop out Modal)
+            isLoading: false,    
+        };
 
-    //     //our event handlers
-    //     this.onCLick = this.onCLick.bind(this);
-    //     this.onKeyUp = this.onKeyUp.bind(this);
-    // }
-
-    state = {
-        burgerPrice: 1.4,
-        isPurchasable: false, //can we purchase the burger(any ingredients?)
-        isPurchasing: false, //after clicking on Order (pop out Modal)
-        isLoading: false,
-    };
+        //our event handlers
+        // this.onCLick = this.onCLick.bind(this);
+        // this.onKeyUp = this.onKeyUp.bind(this);
+    }
 
     componentDidMount() {
         axios.get('https://tastyburgs.firebaseio.com/ingredients.json')
