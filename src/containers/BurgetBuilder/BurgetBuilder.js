@@ -25,7 +25,8 @@ class BurgetBuilder extends Component {
             burgerPrice: 1.4,
             isPurchasable: false, //can we purchase the burger(any ingredients?)
             isPurchasing: false, //after clicking on Order (pop out Modal)
-            isLoading: false,    
+            isLoading: false,
+            isError: false,
         };
 
         //our event handlers
@@ -38,6 +39,7 @@ class BurgetBuilder extends Component {
             .then(res => this.setState({ingredients: res.data}))
             .catch(err => {                
                 console.log(err, 'err');
+                this.setState({isError: true});
             });
     }
 
@@ -117,6 +119,8 @@ class BurgetBuilder extends Component {
                 orderContinue={this.continuePurchasingHandler}
                 ingredients={this.state.ingredients}  
                 price={this.state.burgerPrice}/> : <Spinner />
+   
+        if(this.state.isError) return <p>Unfortunately the app stopped working</p>;
 
         return (
             <Aux> 
