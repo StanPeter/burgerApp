@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Aux from '../../../hoc/Aux';
-import CustomButton from '../../UI/Button/CustomButton';
+import Aux from 'hoc/Aux';
+import CustomButton from 'components/UI/Button/CustomButton';
 
 class OrderSummary extends Component {
     componentDidUpdate() {

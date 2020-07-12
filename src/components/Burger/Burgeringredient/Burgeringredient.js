@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import  { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classes from './BurgerIngredient.module.css';
-import  { connect } from 'react-redux';
 
 class Burgeringredient extends Component {
     render() {

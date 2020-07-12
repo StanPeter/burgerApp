@@ -1,7 +1,8 @@
 import React from 'react';
 import classes from './CheckoutSummary.module.css';
-import Burger from '../../Burger/Burger';
-import CustomButton from '../../UI/Button/CustomButton';
+
+import Burger from 'components/Burger/Burger';
+import CustomButton from 'components/UI/Button/CustomButton';
 
 const CheckoutSummary = (props) => {
 

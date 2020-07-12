@@ -1,6 +1,6 @@
-import './BuildControls.css';
 import React from 'react';
-import BuildControl from './BuildControl/BuildControl';
+import './BuildControls.css';
+import BuildControl from 'components/Burger/BuildControls/BuildControl/BuildControl';
 
 
 const controls = [
