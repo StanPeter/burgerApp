@@ -5,6 +5,7 @@ import Layout from "./components/Layout/Layout";
 import BurgetBuilder from "./containers/BurgetBuilder/BurgetBuilder";
 import { Route, Switch } from "react-router-dom";
 import Checkout from './containers/Checkout/Checkout';
+import Orders from './containers/Orders/Orders';
 
 class App extends Component {
   // state = {
@@ -22,6 +23,7 @@ class App extends Component {
           {/* {this.state.show ? <BurgetBuilder /> : null} */}
           <Switch>
             <Route path="/checkout" component={Checkout} />
+            <Route path="/orders" component={Orders} />
             <Route path="/" exact component={BurgetBuilder} />
           </Switch>
         </Layout>
