@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import Aux from "../../hoc/Aux";
-import Burger from "../../components/Burger/Burger";
-import BuildControls from "../../components/Burger/BuildControls/BuildControls";
-import Modal from "../../components/UI/Modal/Modal";
-import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
-import axios from "../../api/orders";
-import Spinner from "../../components/UI/Spinner/Spinner";
-import errorHandler from "../../hoc/errorHandler";
+import Aux from '../../hoc/Aux';
+import Burger from '../../components/Burger/Burger';
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import axios from '../../api/orders';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import errorHandler from '../../hoc/errorHandler';
 
 const INGREDIENTS_PRICES = {
     salad: 0.2,
@@ -65,7 +65,7 @@ class BurgetBuilder extends Component {
             this.setState({ingredients: updatedIngredient, burgerPrice: updatedBurgerPrice});
             this.isPurchasableHandler(updatedIngredient);
         } else {
-            console.log("Amount of " + type.toUpperCase() + " ingredient cannot be less than 0!");
+            console.log('Amount of ' + type.toUpperCase() + ' ingredient cannot be less than 0!');
         }
     }
 
@@ -87,22 +87,27 @@ class BurgetBuilder extends Component {
     }
 
     continuePurchasingHandler = () => {
-        this.setState({isLoading: true});
-        const order = {
-            ingredient: this.state.ingredients,
-            price: this.state.burgerPrice,
-            customer: {
-                name: 'stan',
-                phone: '23662'
-            }
-        };
+        // this.setState({isLoading: true});
+        // const order = {
+        //     ingredient: this.state.ingredients,
+        //     price: this.state.burgerPrice,
+        //     customer: {
+        //         name: 'stan',
+        //         phone: '23662'
+        //     }
+        // };
 
-        axios.post('/orders.json', order)
-            .then(res => this.setState({isLoading: false, isPurchasing: false}))
-            .catch(err => {
-                this.setState({isLoading: false, isPurchasing: false});
-                console.log(err, 'err');
-            });
+        // axios.post('/orders.json', order)
+        //     .then(res => this.setState({isLoading: false, isPurchasing: false}))
+        //     .catch(err => {
+        //         this.setState({isLoading: false, isPurchasing: false});
+        //         console.log(err, 'err');
+        //     });
+
+        this.props.history.push({
+            pathname: '/checkout',
+            search: new URLSearchParams(this.state.ingredients).toString()
+        });
     }
 
     render() {

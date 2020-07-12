@@ -1,7 +1,7 @@
-import React from "react";
-import classes from "./CheckoutSummary.module.css";
-import Burger from "../../Burger/Burger";
-import CustomButton from "../../UI/Button/CustomButton";
+import React from 'react';
+import classes from './CheckoutSummary.module.css';
+import Burger from '../../Burger/Burger';
+import CustomButton from '../../UI/Button/CustomButton';
 
 const CheckoutSummary = (props) => {
 
@@ -12,11 +12,11 @@ const CheckoutSummary = (props) => {
                 <Burger ingredients={props.ingredients} />
             </div>
             <CustomButton 
-                btnType='Success' 
-                clicked>Continue</CustomButton>
-            <CustomButton 
                 btnType='Danger' 
-                clicked>Cancel</CustomButton>
+                clicked={props.onCheckoutCancel}>Cancel</CustomButton>
+            <CustomButton 
+                btnType='Success' 
+                clicked={props.onCheckoutContinue}>Continue</CustomButton>
         </div>
     )
 }

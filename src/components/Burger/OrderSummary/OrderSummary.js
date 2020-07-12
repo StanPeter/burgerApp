@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import Aux from "../../../hoc/Aux";
-import CustomButton from "../../UI/Button/CustomButton";
+import Aux from '../../../hoc/Aux';
+import CustomButton from '../../UI/Button/CustomButton';
 
 class OrderSummary extends Component {
     componentDidUpdate() {
@@ -13,7 +13,7 @@ class OrderSummary extends Component {
         .map(igKey => {
             return (
                 <li key={igKey}>
-                    <span style={{textTransform: "capitalize"}}>{igKey}</span>: {this.props.ingredients[igKey]}
+                    <span style={{textTransform: 'capitalize'}}>{igKey}</span>: {this.props.ingredients[igKey]}
                 </li>
             );
         });
@@ -27,8 +27,8 @@ class OrderSummary extends Component {
                 </ul>
                 <p><strong>Total price: {this.props.price.toFixed(2)}</strong></p>
                 <p>Continue to Checkout?</p>
-                <CustomButton btnType="Danger" clicked={this.props.orderCancel}>Cancel</CustomButton>
-                <CustomButton btnType="Success" clicked={this.props.orderContinue}>Continue</CustomButton>
+                <CustomButton btnType='Danger' clicked={this.props.orderCancel}>Cancel</CustomButton>
+                <CustomButton btnType='Success' clicked={this.props.orderContinue}>Continue</CustomButton>
             </Aux>
         )
     }

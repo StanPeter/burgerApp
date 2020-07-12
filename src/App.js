@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Layout from "./components/Layout/Layout";
 import BurgetBuilder from "./containers/BurgetBuilder/BurgetBuilder";
+import { Route, Switch } from "react-router-dom";
+import Checkout from './containers/Checkout/Checkout';
 
 class App extends Component {
   // state = {
@@ -18,7 +20,10 @@ class App extends Component {
       <div className="App">
         <Layout>
           {/* {this.state.show ? <BurgetBuilder /> : null} */}
-          <BurgetBuilder />
+          <Switch>
+            <Route path="/checkout" component={Checkout} />
+            <Route path="/" exact component={BurgetBuilder} />
+          </Switch>
         </Layout>
       </div>
     );

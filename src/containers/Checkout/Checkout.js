@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
+import React, { Component } from 'react';
+import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 
 class Checkout extends Component {
     state = {
@@ -11,10 +11,30 @@ class Checkout extends Component {
         }
     }
 
+    componentDidMount() {
+        //passing data from query to state
+        const query = new URLSearchParams(this.props.location.search);
+        const ingredients = {};
+
+        query.forEach((index, ingredient) => ingredients[ingredient] = Number(index));
+        this.setState({ingredients: ingredients});
+    }
+
+    onCheckoutContinueHandler = () => {
+        this.props.history.replace('/checkout/contact-data');
+    }
+
+    onCheckoutCancelHandler = () => {
+        this.props.history.goBack();
+    }
+
     render() {
         return(
             <div>
-                <CheckoutSummary ingredients={this.state.ingredients} />
+                <CheckoutSummary 
+                    onCheckoutContinue={this.onCheckoutContinueHandler}
+                    onCheckoutCancel={this.onCheckoutCancelHandler}
+                    ingredients={this.state.ingredients} />
             </div>
         )
     }
