@@ -23,8 +23,11 @@ class Orders extends Component {
                 });
 
                 this.setState({orders: fetchedOrders, isLoading: false});
+            }) //still doesnt work errors !
+            .catch(err => {
+                console.log(err, 'err');
+                this.setState({isLoading: false, isError: true});
             })
-            .catch(err => this.setState({isLoading: false, isError: true}));
     }
 
     render() {
