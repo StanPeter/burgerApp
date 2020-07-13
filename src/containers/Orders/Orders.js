@@ -14,7 +14,7 @@ class Orders extends Component {
     }
 
     componentDidMount() {
-        axios.get('https://tastyburgs.firebaseio.com/orders')
+        axios.get('https://tastyburgs.firebaseio.com/orders.json')
             .then(res => {
                 const fetchedOrders = [];
                 for(let key in res.data) fetchedOrders.push({
@@ -23,7 +23,7 @@ class Orders extends Component {
                 });
 
                 this.setState({orders: fetchedOrders, isLoading: false});
-            }) //still doesnt work errors !
+            })
             .catch(err => {
                 console.log(err, 'err');
                 this.setState({isLoading: false, isError: true});
