@@ -4,6 +4,7 @@ import classes from './ContactData.module.css';
 import CustomButton from 'components/UI/Button/CustomButton';
 import axios from 'api/orders';
 import Spinner from 'components/UI/Spinner/Spinner' ;
+import Input from 'components/UI/Input/Input';
 
 class ContactData extends Component {
     state = {
@@ -59,24 +60,28 @@ class ContactData extends Component {
                 <h3>Enter your contact details</h3>
                 {this.state.isLoading ? <Spinner /> : 
                 <form onSubmit={() => console.log('submit')} >
-                    <input className={classes.Input}
+                    <Input
+                        inputtype='input'
                         name='name' 
                         type='text' 
                         placeholder='Name'
                         readOnly
                         defaultValue={this.state.name ? this.state.name : ''} />
-                    <input className={classes.Input}
+                    <Input
+                        inputtype='input'
                         name='email' 
                         type='email' 
                         placeholder='Email'
                         readOnly
                         defaultValue={this.state.email ? this.state.email : ''} />
-                    <input className={classes.Input}
+                    <Input
+                        inputtype='input'
                         name='address' 
                         type='text' 
                         placeholder='Address'
                         defaultValue={this.state.formatedAddress ? this.state.formatedAddress : ''} />
-                    <input className={classes.Input}
+                    <Input
+                        inputtype='input'
                         name='country' 
                         type='text' 
                         placeholder='Country'
