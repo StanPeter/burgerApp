@@ -8,17 +8,61 @@ import Input from 'components/UI/Input/Input';
 
 class ContactData extends Component {
     state = {
-        name: 'Peter Johnson',
-        email: 'PeterJohnson@gmail.com',
-        address: {
-            street: 'Köln Straße 5',
-            city: 'Cologne',
-            zipCode: '542 25',
-            country: 'Germany'
+        orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Name',
+                },
+                value: null
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Street',
+                },
+                value: null
+            },
+            zipCode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'ZIP Code',
+                },
+                value: null
+            },
+            country: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Country',
+                },
+                value: null
+            },
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'E-mail',
+                },
+                value: null
+            },
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        { value: 'fastest', displayValue: 'Fastest' },
+                        { value: 'cheapest', displayValue: 'Cheapest' }
+                    ]
+                },
+                value: null
+            },
         },
         formatedAddress: null,
         isLoading: false,
-    }
+    }};
 
     componentDidMount() {
         //format address
