@@ -25,3 +25,15 @@
     outline: none;
     background-color: #ccc;
 }
+
+.Invalid {
+    border: 1px solid red !important;
+    background-color: #fda49a !important; 
+}
+
+.ValidationError {
+    color: red;
+    margin: 5px 0;
+    text-align: left;
+    padding-left: 5px;
+}

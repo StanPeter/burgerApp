@@ -3,7 +3,10 @@ import classes from './CustomButton.module.css';
 
 //Success || Danger
 const CustomButton = (props) => (
-    <button onClick={props.clicked} className={[classes.Button, classes[props.btnType]].join(' ')}>
+    <button 
+        onClick={props.clicked}
+        disabled={props.disabled}
+        className={[classes.Button, classes[props.btnType]].join(' ')}>
         {props.children}
     </button>
 )
