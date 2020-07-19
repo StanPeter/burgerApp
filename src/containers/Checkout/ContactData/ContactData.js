@@ -15,7 +15,10 @@ class ContactData extends Component {
                     type: 'text',
                     placeholder: 'Name',
                 },
-                value: null
+                value: '',
+                validation: {
+                    required: true,
+                }
             },
             street: {
                 elementType: 'input',
@@ -23,7 +26,10 @@ class ContactData extends Component {
                     type: 'text',
                     placeholder: 'Street',
                 },
-                value: null
+                value: '',
+                validation: {
+                    required: true,
+                }
             },
             zipCode: {
                 elementType: 'input',
@@ -31,7 +37,10 @@ class ContactData extends Component {
                     type: 'text',
                     placeholder: 'ZIP Code',
                 },
-                value: null
+                value: '',
+                validation: {
+                    required: true,
+                }
             },
             country: {
                 elementType: 'input',
@@ -39,7 +48,10 @@ class ContactData extends Component {
                     type: 'text',
                     placeholder: 'Country',
                 },
-                value: null
+                value: '',
+                validation: {
+                    required: true,
+                }
             },
             email: {
                 elementType: 'input',
@@ -47,7 +59,10 @@ class ContactData extends Component {
                     type: 'email',
                     placeholder: 'E-mail',
                 },
-                value: null
+                value: '',
+                validation: {
+                    required: true,
+                }
             },
             deliveryMethod: {
                 elementType: 'select',
@@ -57,34 +72,25 @@ class ContactData extends Component {
                         { value: 'cheapest', displayValue: 'Cheapest' }
                     ]
                 },
-                value: null
+                value: 'fastest'
             },
         },
-        formatedAddress: null,
         isLoading: false,
     };
 
     componentDidMount() {
-        //format address
-        // this.setState({formatedAddress: this.formatAddress(this.state.address)});
     }
-
-    // formatAddress(address) {
-    //     return address.street + ', ' + address.city + ' ' + address.zipCode;
-    // }
 
     onOrderHandler = (event) => {
         this.setState({isLoading: true});
+        
+        const formData = {};
+        for(let i in this.state.orderForm) formData[i] = this.state.orderForm[i].value;
+
         const order = {
             ingredient: this.props.ingredients,
             price: this.props.burgerPrice,
-            customer: {
-                name: this.state.orderForm.name.value,
-                email: this.state.orderForm.email.value,
-                street: this.state.orderForm.street.value,
-                country: this.state.orderForm.country.value,
-                zipCode: this.state.orderForm.zipCode.value
-            }
+            orderData: formData
         };
 
         axios.post('/orders.json', order)
@@ -100,6 +106,15 @@ class ContactData extends Component {
         event.preventDefault();
     }
 
+    inputChangeHandler = (event, elName) => {
+        const updatedOrderForm = {...this.state.orderForm};
+        const updatedEl = updatedOrderForm[elName];
+
+        updatedEl.value = event.target.value;
+        updatedOrderForm[elName] = updatedEl;
+        this.setState({orderForm: updatedOrderForm});
+    }
+
     render() {
         const arrayOrderForm = [];
         for(let key in this.state.orderForm) {
@@ -113,17 +128,18 @@ class ContactData extends Component {
             <div className={classes.ContactData}>
                 <h3>Enter your contact details</h3>
                 {this.state.isLoading ? <Spinner /> : 
-                <form onSubmit={() => console.log('submit')} >
+                <form onSubmit={this.onOrderHandler}>
                     {arrayOrderForm.map(orderEl => (
                         <Input 
                             elementType={orderEl.config.elementType}
                             elementConfig={orderEl.config.elementConfig}
                             value={orderEl.config.value}
-                            key={orderEl.id} />
+                            key={orderEl.id}
+                            onChange={(e) => this.inputChangeHandler(e, orderEl.id)} />
                     ))}
                     <CustomButton 
                         btnType='Success' 
-                        clicked={this.onOrderHandler}>Order</CustomButton>
+                        clicked={null}>Order</CustomButton>
                 </form>}
             </div>
         )
