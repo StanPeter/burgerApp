@@ -20,7 +20,6 @@ const ingredientsPrices = {
 const burgerReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_INGREDIENT:
-            console.log(action, 'action addded');
 
             return {
                 ...state,

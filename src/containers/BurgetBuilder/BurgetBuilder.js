@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import * as actionTypes from "store/action";
 import { connect } from "react-redux";
 import Aux from 'hoc/Aux';
@@ -16,7 +16,7 @@ class BurgetBuilder extends Component {
         super(props);
 
         this.state = {
-            isPurchasable: false, //can we purchase the burger(any ingredients?)
+            // isPurchasable: false, //can we purchase the burger(any ingredients?)
             isPurchasing: false, //after clicking on Order (pop out Modal)
             isLoading: false,
             isError: false,
@@ -67,12 +67,12 @@ class BurgetBuilder extends Component {
         .map(ingredient => ingredients[ingredient])
         .reduce((num, el) => num + el ,0);
         
-        this.setState({isPurchasable: numOfIngredients > 0});
+        // this.setState({isPurchasable: numOfIngredients > 0});
+        return numOfIngredients > 0;
     }
 
     purchasingHandler = () => {
         this.setState({isPurchasing: true});
-        console.log(this.state.isPurchasing);
     }
 
     cancelPurchasingHandler = () => {
@@ -80,10 +80,11 @@ class BurgetBuilder extends Component {
     }
 
     continuePurchasingHandler = () => {
-        this.props.history.push({
-            pathname: '/checkout',
-            search: new URLSearchParams(this.props.ingredients).toString() + '&price=' + this.props.burgerPrice
-        });
+        this.props.history.push('/checkout');
+        // this.props.history.push({
+        //     pathname: '/checkout',
+        //     search: new URLSearchParams(this.props.ingredients).toString() + '&price=' + this.props.burgerPrice
+        // });
     }
 
     render() {
@@ -118,7 +119,7 @@ class BurgetBuilder extends Component {
                             removeIngredient={this.props.onIngredientRemoved}
                             burgerPrice={this.props.burgerPrice}
                             disabledInfo={disabledInfo}
-                            purchasableInfo={this.state.isPurchasable}
+                            purchasableInfo={this.isPurchasableHandler(this.props.ingredients)}
                             purchasing={this.purchasingHandler} />
                     </Aux> 
                 )}
