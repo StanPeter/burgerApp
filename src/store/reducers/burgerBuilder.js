@@ -2,12 +2,8 @@ import * as actionTypes from "store/actions/actionTypes";
 
 const initialState = {
     burgerPrice: 1.4,
-    ingredients: {
-        salad: 0,
-        cheese: 0,
-        bacon: 0,
-        meat: 0,
-    },
+    ingredients: null,
+    error: false,
 };
 
 const ingredientsPrices = {
@@ -30,7 +26,7 @@ const burgerReducer = (state = initialState, action) => {
                     [action.ingredientName]: state.ingredients[action.ingredientName] + 1,
                 },
                 burgerPrice: state.burgerPrice + ingredientsPrices[action.ingredientName]
-            }
+            };
         case actionTypes.REMOVE_INGREDIENT:
             return {
                 ...state,
@@ -40,7 +36,17 @@ const burgerReducer = (state = initialState, action) => {
                         state.ingredients[action.ingredientName] - 1 : 0
                 },
                 burgerPrice: state.burgerPrice - ingredientsPrices[action.ingredientName]
-            }
+            };
+        case actionTypes.SET_INGREDIENTS:
+            return {
+                ...state,
+                ingredients: action.ingredients
+            };
+        case actionTypes.FETCH_ERROR_INGREDIENTS:
+            return {
+                ...state,
+                error: true
+            };
         default:
             return state;
     } 

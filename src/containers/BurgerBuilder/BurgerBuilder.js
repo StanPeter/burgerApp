@@ -18,8 +18,6 @@ class BurgetBuilder extends Component {
         this.state = {
             // isPurchasable: false, //can we purchase the burger(any ingredients?)
             isPurchasing: false, //after clicking on Order (pop out Modal)
-            isLoading: false,
-            isError: false,
         };
 
         //our event handlers
@@ -28,12 +26,7 @@ class BurgetBuilder extends Component {
     }
 
     componentDidMount() {
-        // axios.get('https://tastyburgs.firebaseio.com/ingredients.json')
-        //     .then(res => this.setState({ingredients: res.data}))
-        //     .catch(err => {                
-        //         console.log(err, 'err');
-        //         this.setState({isError: true});
-        //     });
+        this.props.onInitIngredients();
     }
 
     // addIngredientHandler = (type) => {
@@ -95,14 +88,14 @@ class BurgetBuilder extends Component {
             disabledInfo[ingredient] = disabledInfo[ingredient] <= 0
         }
 
-        const orderSummary = !this.state.isLoading && this.props.ingredients ? 
+        const orderSummary = this.props.ingredients ? 
             <OrderSummary 
                 orderCancel={this.cancelPurchasingHandler}
                 orderContinue={this.continuePurchasingHandler}
                 ingredients={this.props.ingredients}  
                 price={this.props.burgerPrice}/> : <Spinner />
    
-        if(this.state.isError) return <p>Unfortunately the app stopped working</p>;
+        if(this.props.error) return <p>Unfortunately the app stopped working</p>;
 
         return (
             <Aux> 
@@ -115,8 +108,8 @@ class BurgetBuilder extends Component {
                         <Burger 
                             ingredients={this.props.ingredients} />
                         <BuildControls 
-                            addIngredient={this.props.onIngredientAdded} 
-                            removeIngredient={this.props.onIngredientRemoved}
+                            addIngredient={this.props.onAddIngredient} 
+                            removeIngredient={this.props.onRemoveIngredient}
                             burgerPrice={this.props.burgerPrice}
                             disabledInfo={disabledInfo}
                             purchasableInfo={this.isPurchasableHandler(this.props.ingredients)}
@@ -131,14 +124,16 @@ class BurgetBuilder extends Component {
 const mapStateToProps = state => {
     return {
         ingredients: state.ingredients,
-        burgerPrice: state.burgerPrice
+        burgerPrice: state.burgerPrice,
+        error: state.error,
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded: ingName => dispatch(actions.addIngredient(ingName)),
-        onIngredientRemoved: ingName => dispatch(actions.removeIngredient(ingName)),
+        onAddIngredient: ingName => dispatch(actions.addIngredient(ingName)),
+        onRemoveIngredient: ingName => dispatch(actions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(actions.initIngredients())
     }
 };
 
