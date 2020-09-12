@@ -1,4 +1,4 @@
-import * as actionTypes from "./action";
+import * as actionTypes from "store/actions/actionTypes";
 
 const initialState = {
     burgerPrice: 1.4,

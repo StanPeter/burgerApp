@@ -5,11 +5,12 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import burgerReducer from "store/burgerReducer";
+import burgerBuilderReducer from "store/reducers/burgerBuilder";
 import { BrowserRouter } from "react-router-dom";
 
-const reducer = burgerReducer;
-const store = createStore(reducer);
+const reducer = burgerBuilderReducer;
+//setting up store
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 const app = (
     <Provider store={store}>
         <BrowserRouter>
