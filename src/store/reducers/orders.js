@@ -7,53 +7,50 @@ const initialState = {
 };
 
 const orders = (state = initialState, action) => {
+    const updatedState = {...state};
+
     switch (action.type) {
         case actionTypes.PURCHASE_BURGER_INIT:
-            return {
-                ...state,
-                purchased: false
-            }
+            updatedState.purchased = false;
+            
+            break;
         case actionTypes.PURCHASE_BURGER_START:
-            return {
-                ...state,
-                isLoading: true
-            };
+            updatedState.isLoading = true;
+
+            break;
         case actionTypes.PURCHASE_BURGER_SUCCESS:
             const newOrder = {
                 ...action.orderData,
                 id: action.id,
             };
 
-            return {
-                ...state,
-                isLoading: false,
-                orders: state.orders.concat(newOrder),
-                purchased: true
-            };
+            updatedState.isLoading = false;
+            updatedState.orders = state.orders.concat(newOrder);
+            updatedState.purchased = true;
+            
+            break;
         case actionTypes.PURCHASE_BURGER_FAIL:
-            return {
-                ...state,
-                isLoading: false
-            };
+            updatedState.isLoading = false;
+
+            break;
         case actionTypes.FETCH_ORDERS_SUCCESS:
-            return {
-                ...state,
-                orders: action.orders,
-                isLoading: false
-            }
+            updatedState.isLoading = false;
+            updatedState.orders = action.orders;
+            
+            break;
         case actionTypes.FETCH_ORDERS_FAIL:
-            return {
-                ...state,
-                isLoading: false
-            }
+            updatedState.isLoading = false;
+
+            break;
         case actionTypes.FETCH_ORDERS_START:
-            return {
-                ...state,
-                isLoading: true
-            }
+            updatedState.isLoading = true;
+
+            break;
         default:
-            return state;
+            break;
     }
+
+    return updatedState;
 };
 
 export default orders;
