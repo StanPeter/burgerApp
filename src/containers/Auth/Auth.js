@@ -39,7 +39,7 @@ class Auth extends Component {
             },
         },
         isFormValid: false,
-        isSignUpMode: true
+        isSignUpMode: false
     }
 
     onSubmitHandler = (event) => {
@@ -114,12 +114,12 @@ class Auth extends Component {
                     {form}
                     <CustomButton 
                         btnType='Success'
-                        disabled={!this.state.isFormValid}>Submit</CustomButton>
+                        disabled={!this.state.isFormValid}>{this.state.isSignUpMode ? 'Sign up' : 'Login'}</CustomButton>
                 </form>
 
                 <CustomButton 
                     clicked={this.onChangeSignMode}
-                    btnType='Danger'>{this.state.isSignUpMode ? 'Sign In' : 'Sign Up'} instead</CustomButton>
+                    btnType='Danger'>{this.state.isSignUpMode ? 'Login' : 'Register'} instead</CustomButton>
             </div>
         );
     }

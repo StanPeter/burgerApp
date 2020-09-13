@@ -11,5 +11,6 @@ export {
 } from 'store/actions/orders';
 
 export {
-    auth
+    auth,
+    authLogout
 } from 'store/actions/auth';
