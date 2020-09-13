@@ -7,6 +7,7 @@ const NavigationItems = (props) => ( //exact to match even '/' path
     <ul className={classes.NavigationItems}>
         <NavigationItem link='/' exact>Burger Builder</NavigationItem>
         <NavigationItem link='/orders'>Orders</NavigationItem>
+        <NavigationItem link='/auth'>Login</NavigationItem>
     </ul>
 );
 

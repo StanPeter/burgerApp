@@ -10,7 +10,7 @@ class Checkout extends Component {
     //     burgerPrice: 0,
     // }
 
-    componentWillMount() {
+    // componentWillMount() {
         //passing data from query to state
         // const query = new URLSearchParams(this.props.location.search);
         // const ingredients = {};
@@ -21,7 +21,7 @@ class Checkout extends Component {
         //     else ingredients[ingredient] = Number(index);
         // });
         // this.setState({ingredients: ingredients, burgerPrice: burgerPrice});
-    }
+    // }
 
     onCheckoutContinueHandler = () => {
         this.props.history.replace('/checkout/contact-data');
