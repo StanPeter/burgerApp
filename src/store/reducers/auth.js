@@ -28,6 +28,11 @@ const authReducer = (state = initialState, action) => {
             updatedState.error = action.error;
 
             break;
+        case actionTypes.AUTH_LOGOUT:
+            updatedState.token = null;
+            updatedState.userId = null;
+
+            break;
         default:
             break;
     }

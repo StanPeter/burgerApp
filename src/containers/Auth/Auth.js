@@ -4,6 +4,7 @@ import Input from 'components/UI/Input/Input';
 import CustomButton from 'components/UI/Button/CustomButton';
 import classes from './Auth.module.css';
 import * as actions from "store/actions/index";
+import Spinner from 'components/UI/Spinner/Spinner';
 
 class Auth extends Component {
     state = {
@@ -89,7 +90,7 @@ class Auth extends Component {
             });
         }
 
-        const form = arrayOrderForm.map(el => (
+        let form = arrayOrderForm.map(el => (
             <Input 
                 key={el.id}
                 elementType={el.config.elementType}
@@ -102,8 +103,13 @@ class Auth extends Component {
             />
         ));
 
+        if(this.props.isLoading) form = <Spinner />;
+
+        const errorMessage = this.props.error ? this.props.error?.message : null;
+
         return (
             <div className={classes.Auth}>
+                {errorMessage}
                 <form onSubmit={this.onSubmitHandler}>
                     {form}
                     <CustomButton 
@@ -119,10 +125,17 @@ class Auth extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        isLoading: state.auth.isLoading,
+        error: state.auth.error
+    };
+};
+
 const mapDispatchToProps = dispatch => {
     return {
         onAuth: (email, password, isSignUpMode) => dispatch(actions.auth(email, password, isSignUpMode))
     };
 };
 
-export default connect(null, mapDispatchToProps) (Auth);
+export default connect(mapStateToProps, mapDispatchToProps) (Auth);

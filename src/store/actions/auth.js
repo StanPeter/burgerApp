@@ -2,24 +2,38 @@ import * as actionTypes from "store/actions/actionTypes";
 import axios from 'axios';
 
 export const authStart = () => {
-    return ({
+    return {
         type: actionTypes.AUTH_START
-    });
+    };
 };
 
 export const authSuccess = (userId, token) => {
-    return ({
+    return {
         type: actionTypes.AUTH_SUCCESS,
         userId: userId,
         token: token
-    });
+    };
 };
 
 export const authFail = (error) => {
-    return ({
+    return {
         type: actionTypes.AUTH_FAIL,
         error: error
-    });
+    };
+};
+
+export const authLogout = () => {
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    };
+};
+
+export const checkAuthTimeout = (expirationTime) => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(authLogout());
+        }, expirationTime * 1000)
+    };
 };
 
 export const auth = (email, password, isSignUpMode) => {
@@ -39,11 +53,12 @@ export const auth = (email, password, isSignUpMode) => {
         axios.post(url, authData)
             .then(response => {
                 dispatch(authSuccess(response.data.localId, response.data.idToken));
+                dispatch(checkAuthTimeout(response.data.expiresIn));
             })
             .catch(error => {
                 alert(error);
-                dispatch(authFail(error))
+                dispatch(authFail(error.response.data.error))
             });
         
-    }
-}
+    };
+};
