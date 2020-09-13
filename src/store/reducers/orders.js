@@ -6,7 +6,7 @@ const initialState = {
     purchased: false
 };
 
-const orders = (state = initialState, action) => {
+const orderReducer = (state = initialState, action) => {
     const updatedState = {...state};
 
     switch (action.type) {
@@ -53,4 +53,4 @@ const orders = (state = initialState, action) => {
     return updatedState;
 };
 
-export default orders;
+export default orderReducer;

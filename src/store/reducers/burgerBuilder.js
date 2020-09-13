@@ -57,5 +57,4 @@ const burgerReducer = (state = initialState, action) => {
     return updatedState;
 };
 
-
 export default burgerReducer;

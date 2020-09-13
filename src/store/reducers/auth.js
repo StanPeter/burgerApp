@@ -1,27 +1,38 @@
-import { connect } from "react-redux";
 import * as actionTypes from "store/actions/actionTypes";
 
 const initialState = {
-    password: false
+    token: null,
+    userId: null,
+    error: null,
+    isLoading: false
 };
 
-const auth = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
     const updatedState = {...state};
 
     switch(action.type) {
         case actionTypes.AUTH_START:
+            updatedState.error = null;
+            updatedState.isLoading = true;
 
-            console.log('launched');
             break;
         case actionTypes.AUTH_SUCCESS:
+            updatedState.isLoading = false;
+            updatedState.error = null;
+            updatedState.userId = action.userId;
+            updatedState.token = action.token;
+
             break;
         case actionTypes.AUTH_FAIL:
+            updatedState.isLoading = false;
+            updatedState.error = action.error;
+
             break;
         default:
             break;
     }
 
     return updatedState;
-}
+};
 
-export default auth;
+export default authReducer;
