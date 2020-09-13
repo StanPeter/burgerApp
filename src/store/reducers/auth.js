@@ -4,12 +4,13 @@ const initialState = {
     token: null,
     userId: null,
     error: null,
-    isLoading: false
+    isLoading: false,
+    authRedirectPath: '/'
 };
 
 const authReducer = (state = initialState, action) => {
     const updatedState = {...state};
-
+    
     switch(action.type) {
         case actionTypes.AUTH_START:
             updatedState.error = null;
@@ -31,6 +32,11 @@ const authReducer = (state = initialState, action) => {
         case actionTypes.AUTH_LOGOUT:
             updatedState.token = null;
             updatedState.userId = null;
+
+            break;
+
+        case actionTypes.AUTH_SET_REDIRECT_PATH:
+            updatedState.authRedirectPath = action.path;
 
             break;
         default:

@@ -5,6 +5,7 @@ import CustomButton from 'components/UI/Button/CustomButton';
 import classes from './Auth.module.css';
 import * as actions from "store/actions/index";
 import Spinner from 'components/UI/Spinner/Spinner';
+import { Redirect } from 'react-router-dom';
 
 class Auth extends Component {
     state = {
@@ -40,6 +41,12 @@ class Auth extends Component {
         },
         isFormValid: false,
         isSignUpMode: false
+    }
+
+    componentDidMount() {
+        if(!this.props.isBuildingBurger && this.props.authRedirectPath !== '/') {
+            this.props.onAuthSetRedirectPath('/');
+        }
     }
 
     onSubmitHandler = (event) => {
@@ -107,6 +114,8 @@ class Auth extends Component {
 
         const errorMessage = this.props.error ? this.props.error?.message : null;
 
+        if(this.props.isAuthenticated) return <Redirect to={this.props.authRedirectPath} />
+
         return (
             <div className={classes.Auth}>
                 {errorMessage}
@@ -128,13 +137,17 @@ class Auth extends Component {
 const mapStateToProps = state => {
     return {
         isLoading: state.auth.isLoading,
-        error: state.auth.error
+        error: state.auth.error,
+        isAuthenticated: state.auth.token !== null,
+        isBuildingBurger: state.burgerBuilder.building,
+        authRedirectPath: state.auth.authRedirectPath
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignUpMode) => dispatch(actions.auth(email, password, isSignUpMode))
+        onAuth: (email, password, isSignUpMode) => dispatch(actions.auth(email, password, isSignUpMode)),
+        onAuthSetRedirectPath: (path) => dispatch(actions.authSetRedirectPath(path))
     };
 };
 

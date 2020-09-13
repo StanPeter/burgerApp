@@ -4,6 +4,7 @@ const initialState = {
     burgerPrice: 1.4,
     ingredients: null,
     error: false,
+    building: false
 };
 
 const ingredientsPrices = {
@@ -25,6 +26,7 @@ const burgerReducer = (state = initialState, action) => {
                 [action.ingredientName]: state.ingredients[action.ingredientName] + 1,
             };
             updatedState.burgerPrice = state.burgerPrice + ingredientsPrices[action.ingredientName];
+            updatedState.building = true;
 
             break;
         case actionTypes.REMOVE_INGREDIENT:
@@ -34,6 +36,7 @@ const burgerReducer = (state = initialState, action) => {
                     state.ingredients[action.ingredientName] - 1 : 0
             };
             updatedState.burgerPrice = state.burgerPrice - ingredientsPrices[action.ingredientName];
+            updatedState.building = true;
 
             break;
         case actionTypes.SET_INGREDIENTS:
@@ -44,6 +47,7 @@ const burgerReducer = (state = initialState, action) => {
                 cheese: action.ingredients.cheese,
                 meat: action.ingredients.meat,
             };
+            updatedState.building = false;
 
             break;
         case actionTypes.FETCH_ERROR_INGREDIENTS:
