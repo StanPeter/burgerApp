@@ -5,7 +5,6 @@ import CustomButton from 'components/UI/Button/CustomButton';
 
 class OrderSummary extends Component {
     componentDidUpdate() {
-        console.log('componentWillUpdate');
     }
 
     render() {

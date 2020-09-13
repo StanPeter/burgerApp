@@ -33,7 +33,8 @@ class Checkout extends Component {
 
     render() {
         let summary = <Redirect to='/' />
-        if(this.props.ingredients) {
+
+        if(this.props.ingredients && !this.props.purchased ) {
             summary = (
                 <div>
                     <CheckoutSummary 
@@ -53,9 +54,9 @@ class Checkout extends Component {
 
 const mapStatetoProps = state => {
     return {
-        ingredients: state.ingredients,
+        ingredients: state.burgerBuilder.ingredients,
+        purchased: state.order.purchased
     }
 }
-//there is no dispatch action now
 
-export default connect(mapStatetoProps,{})(Checkout);
+export default connect(mapStatetoProps, {})(Checkout);

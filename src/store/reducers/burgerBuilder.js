@@ -40,6 +40,7 @@ const burgerReducer = (state = initialState, action) => {
         case actionTypes.SET_INGREDIENTS:
             return {
                 ...state,
+                burgerPrice: 1.4,
                 ingredients: {
                     salad: action.ingredients.salad,
                     bacon: action.ingredients.bacon,

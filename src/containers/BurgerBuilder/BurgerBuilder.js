@@ -73,6 +73,7 @@ class BurgetBuilder extends Component {
     }
 
     continuePurchasingHandler = () => {
+        this.props.onPurchaseBurgerInit();
         this.props.history.push('/checkout');
         // this.props.history.push({
         //     pathname: '/checkout',
@@ -123,9 +124,9 @@ class BurgetBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients,
-        burgerPrice: state.burgerPrice,
-        error: state.error,
+        ingredients: state.burgerBuilder.ingredients,
+        burgerPrice: state.burgerBuilder.burgerPrice,
+        error: state.burgerBuilder.error,
     }
 };
 
@@ -133,7 +134,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onAddIngredient: ingName => dispatch(actions.addIngredient(ingName)),
         onRemoveIngredient: ingName => dispatch(actions.removeIngredient(ingName)),
-        onInitIngredients: () => dispatch(actions.initIngredients())
+        onInitIngredients: () => dispatch(actions.initIngredients()),
+        onPurchaseBurgerInit: () => dispatch(actions.purchaseBurgerInit())
     }
 };
 

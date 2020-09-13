@@ -2,8 +2,6 @@ import React from 'react';
 import classes from './Order.module.css';
 
 const Order = (props) => {
-    console.log(props, 'props');
-
     //also gets props.customer
     const getIngredients = [];
     for(let ingredient in props.ingredients) {
