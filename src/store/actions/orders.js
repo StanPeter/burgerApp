@@ -58,9 +58,10 @@ export const fetchOrdersFail = (error) => {
     });
 };
 
-export const fetchOrders = (token) => {
+export const fetchOrders = (token, userId) => {
     return dispatch => {
-        const url = `https://tastyburgs.firebaseio.com/orders.json?auth=${token}`;
+        const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
+        const url = `https://tastyburgs.firebaseio.com/orders.json${queryParams}`;
         dispatch(fetchOrdersStart());
         
         axios.get(url)

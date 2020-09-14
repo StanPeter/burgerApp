@@ -13,5 +13,6 @@ export {
 export {
     auth,
     authLogout,
-    authSetRedirectPath
+    authSetRedirectPath,
+    authCheckLoggedIn
 } from 'store/actions/auth';
