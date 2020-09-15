@@ -5,7 +5,6 @@ import Aux from 'hoc/Aux';
 
 const errorHandler = (WrappedComponent, axios) => {
     return (props) => {
-        console.log(props, 'props', WrappedComponent, axios);
         const [error, setError] = useState(null);
 
         useEffect(() => {
