@@ -19,7 +19,7 @@ const errorHandler = (WrappedComponent, axios) => {
             return () => { //cleaning up the interceptors from the memory
                 axios.interceptors.request.eject(axiosReq);
                 axios.interceptors.response.eject(axiosRes);    
-            }
+            };
         })
 
         const errorCloseHandler = () => {
@@ -33,7 +33,7 @@ const errorHandler = (WrappedComponent, axios) => {
                 </Modal>
                 <WrappedComponent {...props} />
             </Aux>
-        )
+        );
     }
 }
 
